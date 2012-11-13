@@ -8,7 +8,7 @@ zero.
 Implements the solution to the first warmup exercises of the tutorial.
 """
 import sys, os
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from math import cos, sin, pi
 from dmrg101.core.entropies import calculate_entropy
 from dmrg101.core.reduced_DM import diagonalize

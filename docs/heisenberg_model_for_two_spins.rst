@@ -80,7 +80,7 @@ get something like this:
 ::
     
     (dmrg101) $ python tutorial/solutions/heisenberg_for_two_spins.py
-    The ground state energy is 0.693147.
+    The ground state energy is -0.75
     The ground state wavefunction is: 
     [[ 0.          0.70710678]
      [ 0.70710678  0.        ]]

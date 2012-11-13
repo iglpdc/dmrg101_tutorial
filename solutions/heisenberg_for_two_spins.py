@@ -6,7 +6,7 @@ antiferromagnetic Heisenberg model for a system of two spin one-half. The
 calculation of the ground state is done using the Lanczos algorithm.
 """
 import sys, os
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from dmrg101.core.lanczos import calculate_ground_state
 from dmrg101.core.operators import CompositeOperator
 from dmrg101.core.sites import SpinOneHalfSite
