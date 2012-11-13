@@ -1,0 +1,33 @@
+# 
+# Users can install all the code, including the docs and all dependencies
+# needed, by doing:
+#
+# 	$ make install
+#
+.PHONY: install 
+install:
+	pip install -r requirements.txt
+# 
+# The following are intended for developers only, you don't need to use
+# them if just want to work with the codes. Target 'all' builds a python
+# distribution in one shot, performing the tests, creating all the
+# documentation, making a requirement file for pip, and finally packing
+# all together in a python distribution that you can tag and upload to
+# github.
+#
+.PHONY: test requires doc dist 
+test: 
+	nosetests tests
+	nosetests --with-doctest --doctest-options='+ELLIPSIS'
+
+requires:
+	pip freeze > requirements.txt
+
+doc: 
+	cd docs && make html && cd ..
+
+dist:
+	python setup.py sdist --formats=gztar,zip
+
+.PHONY : all
+all:	test doc requires dist
