@@ -2,7 +2,7 @@
 """ Calculates the ground state for the AF Heisenberg for two spins 1/2.
 
 Calculates the ground state energy and wavefunction for the
-antiferromagnetic Heisenberg model for a system of two spin one-half. The
+antiferromagnetic Heisenberg model for a chain of four spin one-half. The
 calculation of the ground state is done using the Lanczos algorithm.
 """
 import sys, os
