@@ -34,7 +34,7 @@ Warmup
    how_to_use_the_tutorial
    playing_with_two_qbits
    heisenberg_model_for_two_spins
-   heisenberg_model_for_n_spins
+   heisenberg_model_for_four_spins
 .. ground_states_have_little_entanglement
 
 Spin systems
