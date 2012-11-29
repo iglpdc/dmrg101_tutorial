@@ -25,6 +25,7 @@ from dmrg101.core.entropies import calculate_entropy, calculate_renyi
 from dmrg101.core.reduced_DM import diagonalize, truncate
 from dmrg101.core.sites import SpinOneHalfSite
 from dmrg101.core.system import System
+from dmrg101.core.truncation_error import calculate_truncation_error
 
 def set_hamiltonian_to_AF_Heisenberg(system):
     """Sets a system Hamiltonian to the AF Heisenberg Hamiltonian.
@@ -83,6 +84,57 @@ def set_operators_to_update_to_AF_Heisenberg(system):
     system.add_to_operators_to_update('s_p', site_op='s_p')
     system.add_to_operators_to_update('s_m', site_op='s_m')
 
+def grow_block_by_one_site(growing_block, ground_state_wf, system, 
+	                   number_of_states_kept):
+    """Grows one side of the system by one site.
+
+    Calculates the truncation matrix by calculating the reduced density
+    matrix for `ground_state_wf` by tracing out the degrees of freedom of
+    the shrinking side. Then updates the operators you need in the next
+    steps, effectively growing the size of the block by one site. 	
+    
+    Parameters
+    ----------
+    growing_block : a string.
+        The block which is growing. It must be 'left' or 'right'.
+    ground_state_wf : a Wavefunction.
+        The ground state wavefunction of your system.
+    system : a System object.
+        The system you want to do the calculation on. This function
+	assumes that you have set the Hamiltonian to something.
+    number_of_states_kept : an int.
+        The number of states you want to keep in each block after the
+	truncation. If the `number_of_states_kept` is smaller than the
+	dimension of the current Hilbert space block, all states are kept.
+ 
+    Returns
+    -------
+    entropy : a double.
+        The Von Neumann entropy for the cut that splits the chain into two
+	equal halves.
+    truncation_error : a double.
+        The truncation error, i.e. the sum of the discarded eigenvalues of
+	the reduced density matrix.
+
+    Raises
+    ------
+    DMRGException
+        if `growing_side` is not 'left' or 'right'.
+    """
+    if growing_block not in ('left', 'right'):
+	raise DMRGException('Growing side must be left or right.')
+    rho = ground_state_wf.build_reduced_density_matrix(growing_block)
+    evals, evecs = diagonalize(rho)
+    truncated_evals, truncation_matrix = truncate(evals, evecs,
+		                                  number_of_states_kept)
+    entropy = calculate_entropy(truncated_evals)
+    truncation_error = calculate_truncation_error(truncated_evals)
+    system.set_growing_side(growing_block)
+    set_block_hamiltonian_to_AF_Heisenberg(system)
+    set_operators_to_update_to_AF_Heisenberg(system)
+    system.update_all_operators(truncation_matrix)
+    return entropy, truncation_error
+
 def infinite_dmrg_step(system, current_size, number_of_states_kept):
     """Performs one step of the infinite DMRG algorithm.
 
@@ -108,13 +160,14 @@ def infinite_dmrg_step(system, current_size, number_of_states_kept):
  
     Returns
     -------
-    current_size : an int.
-        The same parameter that you passed.
     energy_per_site : a double.
         The energy per site for the `current_size`.
-    entropy_left : a double.
+    entropy : a double.
         The Von Neumann entropy for the cut that splits the chain into two
 	equal halves.
+    truncation_error : a double.
+        The truncation error, i.e. the sum of the discarded eigenvalues of
+	the reduced density matrix.
 
     Notes
     -----
@@ -127,30 +180,10 @@ def infinite_dmrg_step(system, current_size, number_of_states_kept):
     """
     set_hamiltonian_to_AF_Heisenberg(system)
     ground_state_energy, ground_state_wf = system.calculate_ground_state()
-    # do the left block
-    rho = ground_state_wf.build_reduced_density_matrix('left')
-    evals, evecs = diagonalize(rho)
-    truncated_evals, truncation_matrix = truncate(evals, evecs,
-		                                  number_of_states_kept)
-    entropy_left = calculate_entropy(truncated_evals)
-    system.set_growing_side('left')
-    set_block_hamiltonian_to_AF_Heisenberg(system)
-    set_operators_to_update_to_AF_Heisenberg(system)
-    system.update_all_operators(truncation_matrix)
-    # do the right block
-    rho = ground_state_wf.build_reduced_density_matrix('right')
-    evals, evecs = diagonalize(rho)
-    truncated_evals, truncation_matrix = truncate(evals, evecs,
-		                                  number_of_states_kept)
-    entropy_right = calculate_entropy(truncated_evals)
-    system.set_growing_side('right')
-    set_block_hamiltonian_to_AF_Heisenberg(system)
-    set_operators_to_update_to_AF_Heisenberg(system)
-    system.update_all_operators(truncation_matrix)
-    # as a check you could  print `entropy_right`, it should be equal to
-    # `entropy_left`
-    # print entropy_right
-    return current_size, ground_state_energy/current_size, entropy_left
+    entropy, truncation_error = grow_block_by_one_site('left', ground_state_wf, 
+		                                       system, number_of_states_kept)
+    grow_block_by_one_site('right', ground_state_wf, system, number_of_states_kept)
+    return ground_state_energy/current_size, entropy, truncation_error
 
 def main(args):
     # 
@@ -160,18 +193,32 @@ def main(args):
     system = System(spin_one_half_site)
     number_of_sites = int(args['-n'])
     number_of_states_kept= int(args['-m'])
+    sizes = []
+    energies = []
+    entropies = []
+    truncation_errors = []
     #
     # infinite DMRG algorithm
     #
     number_of_sites = 2*(number_of_sites/2) # make it even
     for current_size in range(4, number_of_sites+1, 2):
-	current_size, energy_per_site, entropy = (
+	energy_per_site, entropy, truncation_error = ( 
 	    infinite_dmrg_step(system, current_size, number_of_states_kept) )
-	print current_size, current_size*energy_per_site, entropy
-	current_size += 2
+	sizes.append(current_size)
+	# TODO Fix this: not per site actually
+	energies.append(current_size*energy_per_site)
+	entropies.append(entropy)
+	truncation_errors.append(truncation_error)
+    # 
+    # save results
+    #
+    output_file = os.path.join(os.path.abspath(args['--dir']), args['--output'])
+    f = open(output_file, 'w')
+    zipped = zip (sizes, energies, entropies, truncation_errors)
+    f.write('\n'.join('%s %s %s %s' % x for x in zipped))
+    f.close()
+    print 'Results stored in ' + output_file
 
 if __name__ == '__main__':
     args = docopt(__doc__, version = 0.1)
     main(args)
-    output_file = os.path.join(os.path.abspath(args['--dir']), args['--output'])
-    print 'Results stored in ' + output_file

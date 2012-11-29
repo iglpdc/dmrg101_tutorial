@@ -43,8 +43,9 @@ Spin systems
 .. toctree::
    :maxdepth: 1
 
-   dmrg_for_heisenberg_chain
-   cashout_dmrg_for_tfim
+   infinite_heisenberg
+.. dmrg_for_heisenberg_chain
+.. cashout_dmrg_for_tfim
 
 Electronic systems
 ------------------
