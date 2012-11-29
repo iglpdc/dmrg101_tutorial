@@ -1,12 +1,21 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 """ Calculates the entanglement entropy of a two qbit system
 
 Calculates the von Neumann entanglement entropu of a system of two
 spin one-half spins restricted to the subspace of total spin equal to
 zero. 
 
-Implements the solution to the first warmup exercises of the tutorial.
+Usage:
+  two_qbit_system.py [--dir=DIR -o=FILE]
+  two_qbit_system.py -h | --help
+
+Options:
+  -h --help         Shows this screen.
+  -o --output=FILE  Ouput file [default: two_qbit_entropies.dat]
+  --dir=DIR         Ouput directory [default: ./]
+
 """
+from docopt import docopt
 import sys, os
 sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from math import cos, sin, pi
@@ -62,7 +71,7 @@ def trace_out_left_qbit_and_calculate_entropy(wf):
     result = calculate_entropy(evals)
     return result
 
-def main():
+def main(args):
     """Calculates the entanglement entropy for a system of two qbits in a
     singlet state.
     """
@@ -91,12 +100,14 @@ def main():
     #
     # save for plotting
     #
-    filename = 'two_qbit_entropies.dat'
+    filename = args['--output']
     f = open(filename, 'w')
     f.write('\n'.join('%s %s' % x for x in zipped))
     f.close()
-    print "The whole list of psi vs entropies is saved in",
-    print filename+'.'
 
 if __name__ == '__main__':
-    main()
+    args = docopt(__doc__, version = 0.1)
+    main(args)
+    output_file = os.path.join(os.path.abspath(args['--dir']), args['--output'])
+    print "The whole list of psi vs entropies is saved in",
+    print output_file+'.'
