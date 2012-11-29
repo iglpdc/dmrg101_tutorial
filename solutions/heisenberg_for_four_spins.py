@@ -1,10 +1,19 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 """ Calculates the ground state for the AF Heisenberg for two spins 1/2.
 
 Calculates the ground state energy and wavefunction for the
 antiferromagnetic Heisenberg model for a chain of four spin one-half. The
 calculation of the ground state is done using the Lanczos algorithm.
+
+Usage:
+
+  heisenberg_for_four_spins.py -h | --help
+
+Options:
+  -h --help         Shows this screen.
+
 """
+from docopt import docopt
 import sys, os
 sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from dmrg101.core.sites import SpinOneHalfSite
@@ -51,4 +60,5 @@ def main():
     print ground_state_wf.as_matrix
 
 if __name__ == '__main__':
+    args = docopt(__doc__, version = 0.1)
     main()
