@@ -79,7 +79,7 @@ Now we can put together the function to grow a block by one site:
 .. literalinclude:: ../solutions/infinite_heisenberg.py
     :pyobject: grow_block_by_one_site
 
-A step of the infinite DMRG algorithm consist in growing at the same time
+A step of the infinite DMRG algorithm consists in growing at the same time
 both the left and the right blocks by one site. 
 
 .. literalinclude:: ../solutions/infinite_heisenberg.py
@@ -106,5 +106,23 @@ can use:
 ::
     
     $ ./tutorial/solutions/infinite_heisenberg.py --help
+    Implements the infinite version of the DMRG algorithm for the S=1/2 AF
+    Heisenberg.
+    
+    Calculates the ground state energy and wavefunction for the
+    antiferromagnetic Heisenberg model for a chain of spin one-half. The
+    calculation of the ground state is done using the infinite version of the
+    DMRG algorithm.
+    
+    Usage:
+      infinite_heisenberg.py (-m=<states> -n=<sites>) [--dir=DIR -o=FILE]
+      infinite_heisenberg.py -h | --help
+    
+      Options:
+        -h --help         Shows this screen.
+        -n <sites>        Number of sites of the chain.
+        -m <states>       Number of states kept.
+        -o --output=FILE  Ouput file [default: infinite_heisenberg.dat]
+        --dir=DIR         Ouput directory [default: ./]
 
 ------------------------------------------------------------------------------

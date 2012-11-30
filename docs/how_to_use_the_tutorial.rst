@@ -21,8 +21,8 @@ algorithm and the physical ideas behind it.
 If you installed dmrg101, you have a copy of all the solution for the
 exercises. Just check now that everything is there: ::
 
-        (dmrg 101) $ cd tutorial
-        (dmrg 101) $ ls
+        $ cd tutorial
+        $ ls
 
 We recommmend that you don't overwrite these files, so you have always a
 code for the exercise that works. If you want to use the solution as an

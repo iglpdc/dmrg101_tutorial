@@ -51,7 +51,7 @@ Solution
 --------
 
 The plan is the following. First we are going to write a function to
-calculate the wavefunction for the two-qbit system as a function of the
+calculate the wavefunction for the two-qbit system as a function of 
 an angle `psi`:
 
 .. literalinclude:: ../solutions/two_qbit_system.py
@@ -76,7 +76,7 @@ See :download:`a full implementation of the above code
 get something like this: 
 ::
     
-    (dmrg101) $ python tutorial/solutions/two_qbit_system.py
+    $ python tutorial/solutions/two_qbit_system.py
     The maximum value for entropy is 0.693147.
     The wavefunction with max entropy is: 
     [[ 0.          0.70710678]
