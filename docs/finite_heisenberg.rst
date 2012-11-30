@@ -94,5 +94,24 @@ can use:
 ::
     
     $ ./tutorial/solutions/heisenberg.py --help
+    Implements the full DMRG algorithm for the S=1/2 AF Heisenberg.
+    
+    Calculates the ground state energy and wavefunction for the
+    antiferromagnetic Heisenberg model for a chain of spin one-half. The
+    calculation of the ground state is done using the full DMRG algorithm,
+    i.e. first the infinite algorithm, and then doing sweeps for convergence
+    with the finite algorithm.
+    
+    Usage:
+      heisenberg.py (-m=<states> -n=<sites> -s=<sweeps>) [--dir=DIR -o=FILE]
+      heisenberg.py -h | --help
+    
+      Options:
+        -h --help         Shows this screen.
+        -n <sites>        Number of sites of the chain.
+        -m <states>       Number of states kept.
+        -s <sweeps>       Number of sweeps in the finite algorithm.
+        -o --output=FILE  Ouput file [default: heisenberg.dat]
+        --dir=DIR         Ouput directory [default: ./]
 
 ------------------------------------------------------------------------------
