@@ -83,7 +83,7 @@ get something like this:
      [ 0.70710678  0.        ]]
     The whole list of psi vs entropies is saved in two_qbit_entropies.dat.
 
-Which is are in fact the entropy (:math:`log(2)`) and wavefunction of the
+which are in fact the entropy (:math:`log(2)`) and wavefunction of the
 singlet. See also the :download:`data for the entropies vs psi
 <../solutions/two_qbit_entropies.dat>`.
 
