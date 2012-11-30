@@ -20,7 +20,8 @@ Some of the exercises here are adapted from a similar tutorial by Adrian
 Feiguin, which is published in ...
 
 This page is only about the tutorial itself. If you need information about
-the drmg101 code, check out the dmrg101 documentation.
+the drmg101 code, check out the `dmrg101 documentation 
+<http://dmrg101.readthedocs.org/>`_.
 
 This tutorial is released under a CC BY-NC-SA 3.0 license. The dmrg101
 code is released under a MIT license. 
@@ -35,7 +36,6 @@ Warmup
    playing_with_two_qbits
    heisenberg_model_for_two_spins
    heisenberg_model_for_four_spins
-.. ground_states_have_little_entanglement
 
 Spin systems
 ------------
