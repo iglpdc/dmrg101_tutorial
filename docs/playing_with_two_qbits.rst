@@ -76,7 +76,7 @@ See :download:`a full implementation of the above code
 get something like this: 
 ::
     
-    $ python tutorial/solutions/two_qbit_system.py
+    $ ./solutions/two_qbit_system.py
     The maximum value for entropy is 0.693147.
     The wavefunction with max entropy is: 
     [[ 0.          0.70710678]
@@ -85,7 +85,24 @@ get something like this:
 
 which are in fact the entropy (:math:`log(2)`) and wavefunction of the
 singlet. See also the :download:`data for the entropies vs psi
-<../solutions/two_qbit_entropies.dat>`.
+<../solutions/two_qbit_entropies.dat>`. To see the options avaliable:
+::
+
+    $ ./solutions/two_qbit_system.py --help
+    Calculates the entanglement entropy of a two qbit system
+    
+    Calculates the von Neumann entanglement entropu of a system of two
+    spin one-half spins restricted to the subspace of total spin equal to
+    zero. 
+    
+    Usage:
+      two_qbit_system.py [--dir=DIR -o=FILE]
+      two_qbit_system.py -h | --help
+    
+      Options:
+        -h --help         Shows this screen.
+        -o --output=FILE  Ouput file [default: two_qbit_entropies.dat]
+        --dir=DIR         Ouput directory [default: ./]
 
 Conclusion
 ----------

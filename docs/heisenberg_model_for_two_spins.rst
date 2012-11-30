@@ -79,7 +79,7 @@ See :download:`a full implementation of the above code
 get something like this: 
 ::
     
-    (dmrg101) $ python tutorial/solutions/heisenberg_for_two_spins.py
+    $ ./solutions/heisenberg_for_two_spins.py
     The ground state energy is -0.75
     The ground state wavefunction is: 
     [[ 0.          0.70710678]

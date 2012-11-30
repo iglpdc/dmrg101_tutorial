@@ -54,7 +54,7 @@ See :download:`a full implementation of the above code
 get:
 ::
     
-    (dmrg101) $ python tutorial/solutions/heisenberg_for_four_spins.py
+    $ ./solutions/heisenberg_for_four_spins.py
     The ground state energy is -1.616025.
     The ground state wavefunction is: 
     [[ ...
