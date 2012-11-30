@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 """Implements the full DMRG algorithm for the S=1/2 AF Heisenberg.
 
 Calculates the ground state energy and wavefunction for the
@@ -20,9 +20,6 @@ Options:
   --dir=DIR         Ouput directory [default: ./]
 
 """
-from docopt import docopt
-import sys, os
-sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from dmrg101.core.calculate_states_to_keep import calculate_states_to_keep
 from dmrg101.core.entropies import calculate_entropy, calculate_renyi
 from dmrg101.core.reduced_DM import diagonalize, truncate
@@ -30,6 +27,8 @@ from dmrg101.core.sites import SpinOneHalfSite
 from dmrg101.core.system import System
 from dmrg101.core.truncation_error import calculate_truncation_error
 import dmrg101.utils.models.heisenberg_model as model
+from docopt import docopt
+import os
 
 def grow_block_by_one_site(growing_block, ground_state_wf, system, 
 		           number_of_states_kept):

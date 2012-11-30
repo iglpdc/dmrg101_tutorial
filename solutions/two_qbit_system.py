@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 """ Calculates the entanglement entropy of a two qbit system
 
 Calculates the von Neumann entanglement entropu of a system of two
@@ -16,8 +16,7 @@ Options:
 
 """
 from docopt import docopt
-import sys, os
-sys.path.insert(0, os.path.abspath('../../dmrg101'))
+import os
 from math import cos, sin, pi
 from dmrg101.core.entropies import calculate_entropy
 from dmrg101.core.reduced_DM import diagonalize

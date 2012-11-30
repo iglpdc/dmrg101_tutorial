@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 """ Calculates the ground state for the AF Heisenberg for two spins 1/2.
 
 Calculates the ground state energy and wavefunction for the
@@ -14,8 +14,6 @@ Options:
 
 """
 from docopt import docopt
-import sys, os
-sys.path.insert(0, os.path.abspath('../../dmrg101'))
 from dmrg101.core.lanczos import calculate_ground_state
 from dmrg101.core.operators import CompositeOperator
 from dmrg101.core.sites import SpinOneHalfSite
