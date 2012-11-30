@@ -35,14 +35,13 @@ and, truncation error at each step of the algorithm. You could:
   number of states kept, make a plot, and extrapolate the values of the
   energy to zero truncation error with a linear fit. Compare this with the
   exact value for a finite size given by the Bethe Anstatz.
-
 - extract the central charge for the Heisenberg model. The entanglement
   entropy for open boundary conditions scales as
   :math:`S(x)=\frac{c}{6}\log\left[\frac{L}{\pi}sin\left(\frac{\pi
   x}{L}\right)\right]`, where :math:`c, x, L` are the central charge of
   the model; the size of the part of the chain you keep in the reduced
   density matrix, and the size of the whole chain, respectively. In the
-  infinite version of DMRG you are restricted to :math:`x=L/2`, but it
+  infinite version of DMRG you are restricted to :math:`x=L/2`, but it is
   enough to make a guess.
 
 Solution

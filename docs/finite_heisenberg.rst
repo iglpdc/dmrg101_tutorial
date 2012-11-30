@@ -39,10 +39,10 @@ at each step of the algorithm. You could:
   exact value for a finite size given by the Bethe Anstatz.
 - find the scaling of the entanglement entropy for the Heisenberg model.
   The entanglement entropy for open boundary conditions scales as
-  :math:`S(x)=\frac{c}{3}sin\left(\frac{\pi x}{2L}\right)`, where
-  :math:`c, x, L` are the central charge of the model; the size of the
-  part of the chain you keep in the reduced density matrix, and the size
-  of the whole chain, respectively.
+  :math:`S(x)=\frac{c}{6}\log\left[\frac{L}{\pi}sin\left(\frac{\pi
+  x}{L}\right)\right]`, where :math:`c, x, L` are the central charge of
+  the model; the size of the part of the chain you keep in the reduced
+  density matrix, and the size of the whole chain, respectively.
 
 Solution
 --------
