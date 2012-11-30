@@ -44,7 +44,7 @@ Spin systems
    :maxdepth: 1
 
    infinite_heisenberg
-.. dmrg_for_heisenberg_chain
+   finite_heisenberg
 .. cashout_dmrg_for_tfim
 
 Electronic systems

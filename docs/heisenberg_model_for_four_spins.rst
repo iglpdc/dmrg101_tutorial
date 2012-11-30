@@ -12,10 +12,10 @@ Again, the Hamiltonian that we will build is the antiferromagnetic Heisenberg
 model:
 
 .. math::
-    H=\vec{S}_{1}\cdot\vec{S}_{2}=S^{z}_{1}S^{z}_{2}+
-    \frac{1}{2}\left(S^{\dagger}_{1}S^{-}_{2}+
-    S^{-}_{1}S^{\dagger}_{2}\right)
-
+    H=\sum_{i}\vec{S}_{i}\cdot\vec{S}_{i+1}=
+    \sum_{i}\left[S^{z}_{i}S^{z}_{i+1}+
+    \frac{1}{2}\left(S^{\dagger}_{i}S^{-}_{i+1}+
+    S^{-}_{i}S^{\dagger}_{i+1}\right)\right]
  
 where :math:`\vec{S}_{i}=\vec{\sigma}_{i}/2` are the spin operators,
 :math:`\sigma_{i}` are the Pauli matrices, and
