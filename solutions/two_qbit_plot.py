@@ -9,9 +9,9 @@ Usage:
   two_qbit_system.py -h | --help
 
 Options:
-  -h --help         Shows this screen.
+  -h --help       Shows this screen.
   -f --file=FILE  Ouput file [default: two_qbit_entropies.dat]
-  --dir=DIR         Ouput directory [default: ./]
+  --dir=DIR        Ouput directory [default: ./]
 
 """
 from docopt import docopt
