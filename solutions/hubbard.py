@@ -2,14 +2,13 @@
 """Implements the full DMRG algorithm for the Hubbard model.
 
 Calculates the ground state energy and wavefunction for the
-Ising model in a transverse field for a chain of spin one-half. The
-calculation of the ground state is done using the full DMRG algorithm,
-i.e. first the infinite algorithm, and then doing sweeps for convergence
-with the finite algorithm.
+one-dimensional Hubbard model. The calculation of the ground state is done
+using the full DMRG algorithm, i.e. first the infinite algorithm, and then
+doing sweeps for convergence with the finite algorithm.
 
 Usage:
-  tfim.py (-m=<states> -n=<sites> -s=<sweeps> -H=<U_over_t>) [--dir=DIR -o=FILE]
-  tfim.py -h | --help
+  hubbard.py (-m=<states> -n=<sites> -s=<sweeps> -U=<U_over_t>) [--dir=DIR -o=FILE]
+  hubbard.py -h | --help
 
 Options:
   -h --help         Shows this screen.

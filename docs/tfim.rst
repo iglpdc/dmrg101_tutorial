@@ -30,7 +30,7 @@ zero.
 Exercise
 --------
 
-Study the quantm phase transition in the TFIM by measuring the order
+Study the quantum phase transition in the TFIM by measuring the order
 parameters at each side of the transition and comparing the energy at the
 critical point with the exact result. The critical point is 
 
@@ -91,6 +91,4 @@ can use:
       -H <field>        Magnetic field in units of coupling between spins.
       -o --output=FILE  Ouput file [default: tfim.dat]
       --dir=DIR         Ouput directory [default: ./]
-
-------------------------------------------------------------------------------
 

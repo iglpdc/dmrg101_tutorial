@@ -113,5 +113,3 @@ can use:
         -s <sweeps>       Number of sweeps in the finite algorithm.
         -o --output=FILE  Ouput file [default: heisenberg.dat]
         --dir=DIR         Ouput directory [default: ./]
-
-------------------------------------------------------------------------------

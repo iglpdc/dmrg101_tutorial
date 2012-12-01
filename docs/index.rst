@@ -53,7 +53,7 @@ Electronic systems
 .. toctree::
    :maxdepth: 1
 
-    hubbard
+   hubbard
 
 Time dependence
 ---------------
