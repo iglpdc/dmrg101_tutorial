@@ -63,7 +63,7 @@ When using these methods you have to write a `Model` class that contains
 the details of the TFIM model:
 
 .. literalinclude:: ../solutions/tfim_helpers.py
-    :pyobject: TransvereFieldIsingModel
+    :pyobject: TransverseFieldIsingModel
 
 The best thing is to look at the final implementation and compare to the
 previous one for the Heisenberg model:
