@@ -53,13 +53,12 @@ Electronic systems
 .. toctree::
    :maxdepth: 1
 
-    warmup_build_a_electron_site
-    dmrg_for_hubbard_chain
+    hubbard
 
 Time dependence
 ---------------
 .. toctree::
    :maxdepth: 1
 
-   warmup_create_an_extra_electron
-   spin_charge_separation
+.. warmup_create_an_extra_electron
+.. spin_charge_separation
