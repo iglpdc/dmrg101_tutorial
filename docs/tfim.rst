@@ -59,6 +59,12 @@ infinite and finite DMRG steps, and set the Hamiltonian. These are the
 same functions we have seen before, but now written as methods of the
 `System` class. 
 
+When using these methods you have to write a `Model` class that contains
+the details of the TFIM model:
+
+.. literalinclude:: ../solutions/tfim_helpers.py
+    :pyobject: TransvereFieldIsingModel
+
 The best thing is to look at the final implementation and compare to the
 previous one for the Heisenberg model:
 

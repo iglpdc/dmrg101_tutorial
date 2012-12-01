@@ -24,6 +24,9 @@ This page is only about the tutorial itself. If you need information about
 the drmg101 code, check out the `dmrg101 documentation 
 <http://dmrg101.readthedocs.org/>`_.
 
+There is also a `PDF version of this webpage
+<https://media.readthedocs.org/pdf/dmrg101_tutorial/latest/dmrg101_tutorial.pdf>`_.
+
 This tutorial is released under a CC BY-NC-SA 3.0 license. The dmrg101
 code is released under a MIT license. 
 
