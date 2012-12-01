@@ -45,7 +45,7 @@ Spin systems
 
    infinite_heisenberg
    finite_heisenberg
-.. cashout_dmrg_for_tfim
+   tfim
 
 Electronic systems
 ------------------
