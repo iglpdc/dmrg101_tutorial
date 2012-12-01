@@ -17,7 +17,8 @@ Renormalization Group algorithm
 (DMRG).
 
 Some of the exercises here are adapted from a similar tutorial by Adrian
-Feiguin, which is published in ...
+Feiguin, published in `Lectures on the Physics of Strongly Correlated
+Systems XV <http://scitation.aip.org/proceedings/confproceed/1419.jsp>`_.
 
 This page is only about the tutorial itself. If you need information about
 the drmg101 code, check out the `dmrg101 documentation 
@@ -55,10 +56,9 @@ Electronic systems
 
    hubbard
 
-Time dependence
----------------
-.. toctree::
-   :maxdepth: 1
-
-.. warmup_create_an_extra_electron
-.. spin_charge_separation
+.. Time dependence
+   ---------------
+   .. toctree::
+      :maxdepth: 1
+   
+   .. spin_charge_separation
