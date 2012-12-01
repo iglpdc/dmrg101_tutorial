@@ -2,16 +2,15 @@ DMRG algorithm for the Hubbard model
 ====================================
 
 The goal of this exercise is to implement the finite version of the DMRG
-algorithm for the one-dimensional Hubbard model.
-
-The Hamiltonian is:
+algorithm for the one-dimensional Hubbard model. The Hamiltonian is:
 
 .. math::
-    H=\sum_{i}\left(JS^{z}_{i}S^{z}_{i+1}-hS^{x}_{i}\right)
-
+    H=-t\sum_{i, \sigma}\left(c^{\dagger}_{i, \sigma}c_{i, \sigma} + h.c.\right)+
+    U\sum_{i}n_{i, \uparrow}n_{i, \downarrow}
  
-where :math:`\vec{S}_{i}=\vec{\sigma}_{i}/2` are the spin operators, and
-:math:`\sigma_{i}` are the Pauli matrices.
+where :math:`c_{i, \sigma}` is the destruction operator for an electron at
+site :math:`i` and spin :math:`\sigma`, and
+:math:`n_{i, \sigma}=c^{\dagger}_{i, \sigma}c_{i, \sigma}`.
 
 Exercise
 --------
@@ -30,7 +29,7 @@ operators to update. A possible implementation is:
 
 You also have to write a single site class for the
 electronic site, providing operators defined in the Hilbert space of the
-site.
+site:
 
 .. literalinclude:: ../solutions/hubbard_helpers.py
     :pyobject: ElectronicSite
