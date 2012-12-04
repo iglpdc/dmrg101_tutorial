@@ -2,7 +2,7 @@
 """Implements the full DMRG algorithm for the S=1/2 AF Heisenberg.
 
 Calculates the ground state energy and wavefunction for the
-Ising model in a transverse field for a chain of spin one-half. The
+antiferromagnetic Heisenberg for a chain of spin one-half. The
 calculation of the ground state is done using the full DMRG algorithm,
 i.e. first the infinite algorithm, and then doing sweeps for convergence
 with the finite algorithm.
@@ -39,8 +39,8 @@ def main(args):
     # read command-line arguments and initialize some stuff
     #
     number_of_sites = int(args['-n'])
-    number_of_states_kept= int(args['-m'])
-    number_of_sweeps= int(args['-s'])
+    number_of_states_kept = int(args['-m'])
+    number_of_sweeps = int(args['-s'])
     number_of_states_infinite_algorithm = 10
     if number_of_states_kept < number_of_states_infinite_algorithm:
 	number_of_states_kept = number_of_states_infinite_algorithm
@@ -83,8 +83,8 @@ def main(args):
 	# sweep to the right
 	# if this is the last sweep, stop at the middle
 	if half_sweep == 2 * number_of_sweeps - 1:
-	    max_left_block_size = number_of_sites / 2
-        for left_block_size in range(1, max_left_block_size+1):
+	    max_left_block_size = number_of_sites / 2 - 1
+        for left_block_size in range(1, max_left_block_size + 1):
             energy, entropy, truncation_error = ( 
                 system.finite_dmrg_step('left', left_block_size, states) )
             sizes.append(left_block_size)

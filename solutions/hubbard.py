@@ -39,8 +39,9 @@ def main(args):
     # read command-line arguments and initialize some stuff
     #
     number_of_sites = int(args['-n'])
-    number_of_states_kept= int(args['-m'])
-    number_of_sweeps= int(args['-s'])
+    number_of_states_kept = int(args['-m'])
+    number_of_sweeps = int(args['-s'])
+    system.model.U = float(args['-U'])
     number_of_states_infinite_algorithm = 10
     if number_of_states_kept < number_of_states_infinite_algorithm:
 	number_of_states_kept = number_of_states_infinite_algorithm
@@ -53,9 +54,10 @@ def main(args):
     # infinite DMRG algorithm
     #
     max_left_block_size = number_of_sites - 3
-    for left_block_size in range(1, max_left_block_size):
+    for left_block_size in range(1, max_left_block_size+1):
 	energy, entropy, truncation_error = ( 
-	    system.infinite_dmrg_step(number_of_states_infinite_algorithm) )
+	    system.infinite_dmrg_step(left_block_size, 
+		                      number_of_states_infinite_algorithm) )
 	current_size = left_block_size + 3
 	sizes.append(left_block_size)
 	energies.append(energy)
@@ -70,7 +72,7 @@ def main(args):
     half_sweep = 0
     while half_sweep < len(states_to_keep):
 	# sweep to the left
-        for left_block_size in range(max_left_block_size, 1, -1):
+        for left_block_size in range(max_left_block_size, 0, -1):
 	    states = states_to_keep[half_sweep]
             energy, entropy, truncation_error = ( 
                 system.finite_dmrg_step('right', left_block_size, states) )
@@ -82,8 +84,8 @@ def main(args):
 	# sweep to the right
 	# if this is the last sweep, stop at the middle
 	if half_sweep == 2 * number_of_sweeps - 1:
-	    max_left_block_size = number_of_sites / 2
-        for left_block_size in range(1, max_left_block_size):
+	    max_left_block_size = number_of_sites / 2 - 1
+        for left_block_size in range(1, max_left_block_size + 1):
             energy, entropy, truncation_error = ( 
                 system.finite_dmrg_step('left', left_block_size, states) )
             sizes.append(left_block_size)
