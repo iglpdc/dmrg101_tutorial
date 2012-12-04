@@ -24,6 +24,7 @@ from dmrg101.core.sites import SpinOneHalfSite
 from dmrg101.core.system import System
 from dmrg101.core.truncation_error import calculate_truncation_error
 from docopt import docopt
+import numpy as np
 import os
 
 def set_hamiltonian_to_AF_Heisenberg(system):
@@ -56,17 +57,28 @@ def set_hamiltonian_to_AF_Heisenberg(system):
 def set_block_hamiltonian_to_AF_Heisenberg(system):
     """Sets the block Hamiltonian to be what you need for AF Heisenberg.
 
+    Builds a matrix with the proper dimensions full of zeros. Then adds
+    the terms in the Hamiltonian that contain degrees of freedom belonging
+    only to one block. Finally adds the matrix to the block as the
+    operator labelled 'bh'.
+
     Parameters
     ----------
     system : a System.
         The System you want to set the Hamiltonian for.
     """
-    # If you have a block hamiltonian in your block, add it
+    tmp_matrix_size = None
+    if system.growing_side == 'left':
+        tmp_matrix_size = system.get_left_dim()
+    else: 
+        tmp_matrix_size = system.get_right_dim()
+    tmp_matrix_for_bh = np.zeros((tmp_matrix_size, tmp_matrix_size))
     if 'bh' in system.growing_block.operators.keys():
-        system.add_to_block_hamiltonian('bh', 'id')
-    system.add_to_block_hamiltonian('s_z', 's_z')
-    system.add_to_block_hamiltonian('s_p', 's_m', .5)
-    system.add_to_block_hamiltonian('s_m', 's_p', .5)
+        system.add_to_block_hamiltonian(tmp_matrix_for_bh, 'bh', 'id')
+    system.add_to_block_hamiltonian(tmp_matrix_for_bh, 's_z', 's_z')
+    system.add_to_block_hamiltonian(tmp_matrix_for_bh, 's_p', 's_m', .5)
+    system.add_to_block_hamiltonian(tmp_matrix_for_bh, 's_m', 's_p', .5)
+    system.operators_to_add_to_block['bh'] = tmp_matrix_for_bh
 
 def set_operators_to_update_to_AF_Heisenberg(system):
     """Sets the operators to update to be what you need to AF Heisenberg.
@@ -75,10 +87,12 @@ def set_operators_to_update_to_AF_Heisenberg(system):
     ----------
     system : a System.
         The System you want to set the Hamiltonian for.
+	
+    Notes
+    -----
+    The block Hamiltonian, althought needs to be updated, is treated
+    separately by the very functions in the `System` class.
     """
-    # If you have a block hamiltonian in your block, update it
-    if 'bh' in system.growing_block.operators.keys():
-        system.add_to_operators_to_update('bh', block_op='bh')
     system.add_to_operators_to_update('s_z', site_op='s_z')
     system.add_to_operators_to_update('s_p', site_op='s_p')
     system.add_to_operators_to_update('s_m', site_op='s_m')
@@ -122,19 +136,19 @@ def grow_block_by_one_site(growing_block, ground_state_wf, system,
     """
     if growing_block not in ('left', 'right'):
 	raise DMRGException('Growing side must be left or right.')
+    system.set_growing_side(growing_block)
     rho = ground_state_wf.build_reduced_density_matrix(growing_block)
     evals, evecs = diagonalize(rho)
     truncated_evals, truncation_matrix = truncate(evals, evecs,
 		                                  number_of_states_kept)
     entropy = calculate_entropy(truncated_evals)
     truncation_error = calculate_truncation_error(truncated_evals)
-    system.set_growing_side(growing_block)
     set_block_hamiltonian_to_AF_Heisenberg(system)
     set_operators_to_update_to_AF_Heisenberg(system)
     system.update_all_operators(truncation_matrix)
     return entropy, truncation_error
 
-def infinite_dmrg_step(system, current_size, number_of_states_kept):
+def infinite_dmrg_step(system, block_size, number_of_states_kept):
     """Performs one step of the infinite DMRG algorithm.
 
     Calculates the ground state of a system with a given size, then
@@ -148,9 +162,8 @@ def infinite_dmrg_step(system, current_size, number_of_states_kept):
     system : a System object.
         The system you want to do the calculation on. This function
 	assumes that you have set the Hamiltonian to something.
-    current_size : an int.
-        The number of sites in the chain. It must be even and it is a
-	constant in this function, only used to calculate the energy per
+    block_size : an int.
+        The number of sites of each block, not including the single
 	site.
     number_of_states_kept : an int.
         The number of states you want to keep in each block after the
@@ -182,7 +195,7 @@ def infinite_dmrg_step(system, current_size, number_of_states_kept):
     entropy, truncation_error = grow_block_by_one_site('left', ground_state_wf, 
 		                                       system, number_of_states_kept)
     grow_block_by_one_site('right', ground_state_wf, system, number_of_states_kept)
-    return ground_state_energy/current_size, entropy, truncation_error
+    return ground_state_energy, entropy, truncation_error
 
 def main(args):
     # 
@@ -190,6 +203,9 @@ def main(args):
     #
     spin_one_half_site = SpinOneHalfSite()
     system = System(spin_one_half_site)
+    #
+    # read command-line arguments and initialize some stuff
+    #
     number_of_sites = int(args['-n'])
     number_of_states_kept= int(args['-m'])
     sizes = []
@@ -199,13 +215,13 @@ def main(args):
     #
     # infinite DMRG algorithm
     #
-    number_of_sites = 2*(number_of_sites/2) # make it even
-    for current_size in range(4, number_of_sites+1, 2):
-	energy_per_site, entropy, truncation_error = ( 
-	    infinite_dmrg_step(system, current_size, number_of_states_kept) )
+    number_of_sites = 2 * (number_of_sites / 2) # make it even
+    for current_size in range(4, number_of_sites + 1, 2):
+	block_size = current_size / 2 - 1
+	energy, entropy, truncation_error = ( 
+	    infinite_dmrg_step(system, block_size, number_of_states_kept) )
 	sizes.append(current_size)
-	# TODO Fix this: not per site actually
-	energies.append(current_size*energy_per_site)
+	energies.append(energy)
 	entropies.append(entropy)
 	truncation_errors.append(truncation_error)
     # 
