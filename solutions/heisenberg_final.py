@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Implements the full DMRG algorithm for the S=1/2 TFIM.
+"""Implements the full DMRG algorithm for the S=1/2 AF Heisenberg.
 
 Calculates the ground state energy and wavefunction for the
 Ising model in a transverse field for a chain of spin one-half. The
@@ -8,16 +8,15 @@ i.e. first the infinite algorithm, and then doing sweeps for convergence
 with the finite algorithm.
 
 Usage:
-  tfim.py (-m=<states> -n=<sites> -s=<sweeps> -H=<field>) [--dir=DIR -o=FILE]
-  tfim.py -h | --help
+  heisenberg_final.py (-m=<states> -n=<sites> -s=<sweeps>) [--dir=DIR -o=FILE]
+  heisenberg_final.py -h | --help
 
 Options:
   -h --help         Shows this screen.
   -n <sites>        Number of sites of the chain.
   -m <states>       Number of states kept.
   -s <sweeps>       Number of sweeps in the finite algorithm.
-  -H <field>        Magnetic field in units of coupling between spins.
-  -o --output=FILE  Ouput file [default: tfim.dat]
+  -o --output=FILE  Ouput file [default: heisenberg_final.dat]
   --dir=DIR         Ouput directory [default: ./]
 
 """
@@ -35,14 +34,13 @@ def main(args):
     #
     spin_one_half_site = SpinOneHalfSite()
     system = System(spin_one_half_site)
-    system.model = TranverseFieldIsingModel()
+    system.model = HeisenbergModel()
     #
     # read command-line arguments and initialize some stuff
     #
     number_of_sites = int(args['-n'])
     number_of_states_kept= int(args['-m'])
-    number_of_sweeps = int(args['-s'])
-    system.model.H = float(args['-H'])
+    number_of_sweeps= int(args['-s'])
     number_of_states_infinite_algorithm = 10
     if number_of_states_kept < number_of_states_infinite_algorithm:
 	number_of_states_kept = number_of_states_infinite_algorithm
