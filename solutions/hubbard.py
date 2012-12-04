@@ -58,7 +58,7 @@ def main(args):
 	    system.infinite_dmrg_step(number_of_states_infinite_algorithm) )
 	current_size = left_block_size + 3
 	sizes.append(left_block_size)
-	energies.append(energy/current_size)
+	energies.append(energy)
 	entropies.append(entropy)
 	truncation_errors.append(truncation_error)
     #
@@ -75,7 +75,7 @@ def main(args):
             energy, entropy, truncation_error = ( 
                 system.finite_dmrg_step('right', left_block_size, states) )
             sizes.append(left_block_size)
-            energies.append(energy/number_of_sites)
+            energies.append(energy)
             entropies.append(entropy)
             truncation_errors.append(truncation_error)
 	half_sweep += 1
@@ -87,7 +87,7 @@ def main(args):
             energy, entropy, truncation_error = ( 
                 system.finite_dmrg_step('left', left_block_size, states) )
             sizes.append(left_block_size)
-            energies.append(energy/number_of_sites)
+            energies.append(energy)
             entropies.append(entropy)
             truncation_errors.append(truncation_error)
 	half_sweep += 1
