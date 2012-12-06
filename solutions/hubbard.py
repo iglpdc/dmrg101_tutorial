@@ -54,7 +54,7 @@ def main(args):
     # infinite DMRG algorithm
     #
     max_left_block_size = number_of_sites - 3
-    for left_block_size in range(1, max_left_block_size+1):
+    for left_block_size in range(1, max_left_block_size + 1):
 	energy, entropy, truncation_error = ( 
 	    system.infinite_dmrg_step(left_block_size, 
 		                      number_of_states_infinite_algorithm) )
