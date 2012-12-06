@@ -5,11 +5,13 @@ The file must contain two columns of the same lenght. The first column
 will be the data in the x-axis, the second column the data in the y-axis.
 
 Usage:
-  two_qbit_plot.py <file>
-  two_qbit_plot.py -h | --help
+  plot_from_file.py <file> [-x=<x_col> -y=<y_col>]
+  plot_from_file.py -h | --help
 
 Options:
-  -h --help       Shows this screen.
+  -h --help   Shows this screen.
+  -x <x_col>  Which column has the data for x-axis [default: 0]
+  -y <y_col>  Which column has the data for y-axis [default: 1]
 
 """
 from docopt import docopt
@@ -18,12 +20,14 @@ import os
 
 args = docopt(__doc__, version = 0.1)
 data_file = os.path.abspath(args['<file>'])
+x_col = int(args['-x'])
+y_col = int(args['-y'])
 fin = open(data_file, 'r')
 x = []
 y = []
 for lines in fin:
     line = lines.split()
-    x.append(float(line[0]))
-    y.append(float(line[1]))
+    x.append(float(line[x_col]))
+    y.append(float(line[y_col]))
 plt.plot(x, y)
 plt.show()
