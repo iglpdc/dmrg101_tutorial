@@ -33,13 +33,13 @@ at each step of the algorithm. You could:
   converges. The relative error in energy is given by the truncation
   error. In a given sweep, where is the energy best approximate to the
   actual value?
-- calculate the energy per site for a given system sizes and different
-  number of states kept, make a plot, and extrapolate the values of the
-  energy to zero truncation error with a linear fit. Compare this with the
-  exact value for a finite size given by the Bethe Anstatz.
+- for the same size you chose in the last exercise, repeat the same
+  extrapolation for the energy to zero truncation error. Compare this with
+  the exact value for a finite size given by the Bethe Anstatz, and with
+  the results you 
 - find the scaling of the entanglement entropy for the Heisenberg model.
   The entanglement entropy for open boundary conditions scales as
-  :math:`S(x)=\frac{c}{6}\log\left[\frac{L}{\pi}sin\left(\frac{\pi
+  :math:`S(x)=\frac{c}{6}\log\left[\frac{2L}{\pi}sin\left(\frac{\pi
   x}{L}\right)\right]`, where :math:`c, x, L` are the central charge of
   the model; the size of the part of the chain you keep in the reduced
   density matrix, and the size of the whole chain, respectively.
@@ -113,3 +113,7 @@ can use:
         -s <sweeps>       Number of sweeps in the finite algorithm.
         -o --output=FILE  Ouput file [default: heisenberg.dat]
         --dir=DIR         Ouput directory [default: ./]
+
+You can use :download:`this script <../solutions/plot_entropies_obc.py>`
+to plot the entropies and fit them to the result from conformal field
+theory.
