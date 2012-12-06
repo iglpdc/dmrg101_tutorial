@@ -148,7 +148,7 @@ def grow_block_by_one_site(growing_block, ground_state_wf, system,
     system.update_all_operators(truncation_matrix)
     return entropy, truncation_error
 
-def infinite_dmrg_step(system, block_size, number_of_states_kept):
+def infinite_dmrg_step(system, current_size, number_of_states_kept):
     """Performs one step of the infinite DMRG algorithm.
 
     Calculates the ground state of a system with a given size, then
@@ -157,14 +157,16 @@ def infinite_dmrg_step(system, block_size, number_of_states_kept):
     Hilbert space of each blocks, and reset the blocks in the system to be
     the new, enlarged, truncated ones.
 
+    In reality the second block is not updated but just copied over from
+    the first.
+
     Parameters
     ----------
     system : a System object.
         The system you want to do the calculation on. This function
 	assumes that you have set the Hamiltonian to something.
-    block_size : an int.
-        The number of sites of each block, not including the single
-	site.
+    current_size : an int.
+        The number of sites of the chain.
     number_of_states_kept : an int.
         The number of states you want to keep in each block after the
 	truncation. If the `number_of_states_kept` is smaller than the
@@ -188,14 +190,15 @@ def infinite_dmrg_step(system, block_size, number_of_states_kept):
     operators in the other side, saving the half of the CPU time. In
     practical DMRG calculations one uses the finite algorithm to
     improve the result of the infinite algorithm, and one of the blocks
-    is kept one site long, and therefore not updated.
+    is kept one site long, and therefore not updated. 
     """
     set_hamiltonian_to_AF_Heisenberg(system)
     ground_state_energy, ground_state_wf = system.calculate_ground_state()
     entropy, truncation_error = grow_block_by_one_site('left', ground_state_wf, 
-		                                       system, number_of_states_kept)
-    grow_block_by_one_site('right', ground_state_wf, system, number_of_states_kept)
-    return ground_state_energy, entropy, truncation_error
+		                                       system, 
+						       number_of_states_kept)
+    system.right_block = system.left_block
+    return ground_state_energy / current_size, entropy, truncation_error
 
 def main(args):
     # 
@@ -217,9 +220,9 @@ def main(args):
     #
     number_of_sites = 2 * (number_of_sites / 2) # make it even
     for current_size in range(4, number_of_sites + 1, 2):
-	block_size = current_size / 2 - 1
+	#block_size = current_size / 2 - 1
 	energy, entropy, truncation_error = ( 
-	    infinite_dmrg_step(system, block_size, number_of_states_kept) )
+	    infinite_dmrg_step(system, current_size, number_of_states_kept) )
 	sizes.append(current_size)
 	energies.append(energy)
 	entropies.append(entropy)
