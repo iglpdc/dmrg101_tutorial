@@ -24,7 +24,7 @@ Options:
 from dmrg101.core.calculate_states_to_keep import calculate_states_to_keep
 from dmrg101.core.sites import SpinOneHalfSite
 from dmrg101.core.system import System
-from dmrg101.utils.models.heisenberg_model import HeisenbergModel
+from dmrg101.utils.models.tfi_model import TranverseFieldIsingModel
 from docopt import docopt
 import os
 
