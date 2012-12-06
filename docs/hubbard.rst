@@ -24,20 +24,20 @@ The implementation is straighforward now. You have to write a model class
 which with the functions to set the Hamiltonian, block Hamiltonians, and
 operators to update. A possible implementation is:
 
-.. literalinclude:: ../solutions/hubbard_helpers.py
+.. literalinclude:: ../static/hubbard_helpers.py
     :pyobject: HubbardModel
 
 You also have to write a single site class for the
 electronic site, providing operators defined in the Hilbert space of the
 site:
 
-.. literalinclude:: ../solutions/hubbard_helpers.py
+.. literalinclude:: ../static/hubbard_helpers.py
     :pyobject: ElectronicSite
 
 The implementation of the DMRG algorithm itself has only minor changes
 with respect what you have done before:
 
-.. literalinclude:: ../solutions/tfim.py
+.. literalinclude:: ../solutions/hubbard.py
     :pyobject: main
 
 See :download:`a full implementation of the above code

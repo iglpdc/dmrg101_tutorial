@@ -78,7 +78,7 @@ same functions we have seen before, but now written as methods of the
 When using these methods you have to write a `Model` class that contains
 the details of the TFIM model:
 
-.. literalinclude:: ../solutions/tfim_helpers.py
+.. literalinclude:: ../static/tfim_helpers.py
     :pyobject: TranverseFieldIsingModel
 
 The best thing is to look at the final implementation and compare to the
