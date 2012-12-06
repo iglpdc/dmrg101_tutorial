@@ -31,18 +31,25 @@ and, truncation error at each step of the algorithm. You could:
 - make a plot of the energy per site versus system size to see how
   converges. The relative error in energy is given by the truncation
   error.
-- calculate the energy per site for a given system sizes and different
-  number of states kept, make a plot, and extrapolate the values of the
-  energy to zero truncation error with a linear fit. Compare this with the
-  exact value for a finite size given by the Bethe Anstatz.
-- extract the central charge for the Heisenberg model. The entanglement
-  entropy for open boundary conditions scales as
-  :math:`S(x)=\frac{c}{6}\log\left[\frac{L}{\pi}sin\left(\frac{\pi
-  x}{L}\right)\right]`, where :math:`c, x, L` are the central charge of
-  the model; the size of the part of the chain you keep in the reduced
-  density matrix, and the size of the whole chain, respectively. In the
-  infinite version of DMRG you are restricted to :math:`x=L/2`, but it is
-  enough to make a guess.
+- for a given system size (say :math:`n=32,\dots, 64`) calculate the
+  energy per site for different number of states kept, make a plot, and
+  extrapolate the values of the energy to zero truncation error with a
+  linear fit. Compare this with the exact value for a finite size given by
+  the Bethe Anstatz.
+
+  +----+-------------------+
+  | L  | E/J               |
+  +====+===================+
+  | 16 | -6.9117371455749  |
+  +----+-------------------+
+  | 24 | -10.4537857604096 |
+  +----+-------------------+
+  | 32 | -13.9973156182243 |
+  +----+-------------------+
+  | 48 | -21.0859563143863 |
+  +----+-------------------+
+  | 64 | -28.1754248597421 |
+  +----+-------------------+
 
 Solution
 --------
@@ -125,5 +132,3 @@ can use:
         -m <states>       Number of states kept.
         -o --output=FILE  Ouput file [default: infinite_heisenberg.dat]
         --dir=DIR         Ouput directory [default: ./]
-
-------------------------------------------------------------------------------
