@@ -8,7 +8,7 @@ spins one-half and study the model close to the quantum phase transition.
 The Hamiltonian is:
 
 .. math::
-    H=\sum_{i}\left(JS^{z}_{i}S^{z}_{i+1}-hS^{x}_{i}\right)
+    H=\sum_{i}\left(-JS^{z}_{i}S^{z}_{i+1}-hS^{x}_{i}\right)
 
  
 where :math:`\vec{S}_{i}=\vec{\sigma}_{i}/2` are the spin operators, and
@@ -19,13 +19,29 @@ critical point the exact value for the ground state energy for a finite
 system with open boundary conditions is given by:
 
 .. math::
-    E/J=whatever
+    E/J=1-cosec\left(\frac{\pi}{2\left(2L+1\right)}\right)
 
 The high field phase :math:`h/J>1.0` is a paramagnet with an order
 parameter :math:`\langle S^{x}\rangle\neq 0`. The low field phase
 :math:`h/J<1.0` is a ferromagnet with an order parameter :math:`\langle
 S^{z}\rangle\neq 0`. At the critical point, both order parameters go to
 zero.
+
+The exact values of the energies at the critical point are:
+
++----+---------------+
+| L  | E/L (J)       |
++====+===============+
+| 16 | -1.2510242438 |
++----+---------------+
+| 20 | -1.255389856  |
++----+---------------+
+| 32 | -1.2620097863 |
++----+---------------+
+| 40 | -1.264235845  |
++----+---------------+
+| 64 | -1.267593439  |
++----+---------------+
 
 Exercise
 --------
