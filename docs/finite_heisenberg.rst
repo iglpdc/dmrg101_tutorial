@@ -58,21 +58,35 @@ take you only for larger block sizes, you have to use an old version of
 the block that is shrinking. This is done saving each of the block when
 they grow, so you simply pull the right one from a list of old blocks.
 
+To being able to reuse this code latter we are going to put all the stuff
+related to the AF Heisenberg model in a new object. In this way it's
+easier to switch between different models. This bring nothing new to the
+algorithm itself. The file with the model is something like this:
+
+.. literalinclude:: ../static/heisenberg_model.py
+
+The real changes are in the functions to grow the blocks, and perform the
+infinite and finite DMRG steps. As was said above these functions are
+included not in the main file, as in the previous exercise, but in the
+`System` class. Apart from the minor changes introduced by this change in
+the interface, you show pay attention to the changes in the functions
+themselves.
+
 The first change we will make is to grow the system asymmetrically. This
 means that during the infinite version of the algorithm we keep on block
 (the right one) one-site long. You do this simply but not growing the
 right block:
 
-.. literalinclude:: ../solutions/heisenberg.py
-    :pyobject: infinite_dmrg_step
+.. literalinclude:: ../static/system.py
+    :pyobject: System.infinite_dmrg_step
 
 Next thing is to write the function to implement the DMRG step during the
 finite algorithm. The only difference with the infinite version is that
 now in addition to grow one of the blocks, you set the other one to be the
 one with the proper size in a previous sweep.
 
-.. literalinclude:: ../solutions/heisenberg.py
-    :pyobject: finite_dmrg_step
+.. literalinclude:: ../static/system.py
+    :pyobject: System.finite_dmrg_step
 
 During the finite sweeps you want to increase the number of states that
 you keep. A good way to do that is increasing them linearly at each

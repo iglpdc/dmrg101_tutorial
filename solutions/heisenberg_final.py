@@ -8,15 +8,15 @@ i.e. first the infinite algorithm, and then doing sweeps for convergence
 with the finite algorithm.
 
 Usage:
-  heisenberg_final.py (-m=<states> -n=<sites> -s=<sweeps>) [--dir=DIR -o=FILE]
-  heisenberg_final.py -h | --help
+  heisenberg.py (-m=<states> -n=<sites> -s=<sweeps>) [--dir=DIR -o=FILE]
+  heisenberg.py -h | --help
 
 Options:
   -h --help         Shows this screen.
   -n <sites>        Number of sites of the chain.
   -m <states>       Number of states kept.
   -s <sweeps>       Number of sweeps in the finite algorithm.
-  -o --output=FILE  Ouput file [default: heisenberg_final.dat]
+  -o --output=FILE  Ouput file [default: heisenberg.dat]
   --dir=DIR         Ouput directory [default: ./]
 
 """
