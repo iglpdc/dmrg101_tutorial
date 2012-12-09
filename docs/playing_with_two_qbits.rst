@@ -12,10 +12,10 @@ Exercise
 -------- 
 
 Calculate the entanglement entropy when you trace out one of the spins in
-a general state in the spin zero subspace of a two spin one-half system.
-For which of the states in the spin zero subspace is are the two spin
-maximally entangled (i.e. the Von Neumann entanglement entropy is
-maximal)?
+a general state in the subspace of a two spin one-half system where the
+two particles have opposite spin. For which of the states in this
+subspace is are the two spins maximally entangled (i.e. the Von Neumann
+entanglement entropy is maximal)?
 
 Hint
 ----
@@ -39,8 +39,9 @@ will correspond to states with the left (right) spin up. The choice of
 whether the first or second row corresponds to spin down or up is
 arbitrary, but once you made the choice you have to be consistent.
 
-If we restrict ourselves to the :math:`S_{tot}=0` subspace, the most general 
-wavefunction for the two qbit systems is simply [#]_:
+If we restrict ourselves to the subspace where the particles have
+opposite spin, the most general wavefunction for the two qbit systems
+is simply [#]_:
 
 .. math::
     |\psi\rangle = \cos \phi |\downarrow\uparrow\rangle 
@@ -83,8 +84,11 @@ get something like this:
      [ 0.70710678  0.        ]]
     The whole list of psi vs entropies is saved in two_qbit_entropies.dat.
 
-which are in fact the entropy (:math:`log(2)`) and wavefunction of the
-singlet. See also the :download:`data for the entropies vs psi
+which are in fact the entropy (:math:`log(2)`) and the wavefunction of
+the triplet state where the particles have opposite spins. In your own
+code, you might alternatively have observed a state with the same entropy
+but where one of the two components is negative; this is the singlet
+state. See also the :download:`data for the entropies vs psi
 <../solutions/two_qbit_entropies.dat>`. To see the options avaliable:
 ::
 
@@ -108,18 +112,20 @@ Conclusion
 ----------
 
 It is important that you note that this is the general solution for a
-system of two qbits, and that two-qbits cannot be more entangled that in
-the singlet state. In system of many particles is splitted in two parts
-(think in a larger chain of spins cut at some point in two), one can
-always represent the relevant degrees of freedom at the cut as a set of
-qbits. Then it follows from the result you just proved that the most
-*economical* way of representing the entanglement across the cut is to map
-the degrees of freedom of each side to a qbits and *maximally entangle*
-them across the cut. Any other state to be formed with the qbits in one
-side and the other, will either have less entanglement across the cut than
-the one in the original degrees of freedom, or use more qbits at each
-side of the cut. This is the basis of the mappings used in quantum
-information methods like MPS or TNS, and you will see *maximally entangled
+system of two qbits, and that two-qbits cannot be more entangled than
+when they are in an equal amplitude (but possibly opposite phase)
+superposition state over configurations where the particles have opposite
+spin. In system of many particles is splitted in two parts (think in a
+larger chain of spins cut at some point in two), one can always represent
+the relevant degrees of freedom at the cut as a set of qbits. Then it
+follows from the result you just proved that the most *economical* way of
+representing the entanglement across the cut is to map the degrees of
+freedom of each side to a qbits and *maximally entangle* them across
+the cut. Any other state to be formed with the qbits in one side and the
+other, will either have less entanglement across the cut than the one
+in the original degrees of freedom, or use more qbits at each side of
+the cut. This is the basis of the mappings used in quantum information
+methods like MPS or TNS, and you will see *maximally entangled
 spins/qbits* a lot in the rest of the school.
 
 --------------------------------------
